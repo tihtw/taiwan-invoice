@@ -17,6 +17,20 @@ SDK 功能部分分為兩個大類：
 
 通通都還沒實作...
 
+# 關於 IP 限制
+
+在營業人應用 API 的部分會限制連線 IP, 可能會影響開發測試，因此開發者可以自行設定 `ConnectionHost` 利用 `socat` 或者是 SSH 反向隧道進行，另外需要設定 `ConnectionHost` 作為連線用的 host.
+
+舉例來說：
+在 example.tw 主機設定了 
+```
+socat tcp-listen:1237,reuseaddr,fork tcp:www-vc.einvoice.nat.gov.tw:443,bind=103.0.0.0
+```
+
+如此連線至 example.tw 的主機會利用 103.0.0.0 的 IP 連線到指定主機 (HOST)。
+
+在 SDK 中可以設定 `ConnectionHost` 為 `example.tw:1237` 來讓 SDK 先連線到該主機。
+
 
 # 參照規格
 
