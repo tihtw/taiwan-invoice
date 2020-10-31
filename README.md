@@ -46,6 +46,9 @@ socat tcp-listen:1237,reuseaddr,fork tcp:www-vc.einvoice.nat.gov.tw:443,bind=103
 * 電子發票應用 API 規格 版本: 1.7
 * 電子發票營業人應用 API 規格: 1.6
 
+# MIG 部分
+
+* 電子發票資料交換標準訊息建置指引 (Message Implementation Guideline) Ver:3.2.1
 
 # 其他相關連結
 
