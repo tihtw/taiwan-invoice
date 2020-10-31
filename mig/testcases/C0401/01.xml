@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Invoice xmlns="urn:GEINV:eInvoiceMessage:C0401:3.1">
+  <Main>
+    <!-- 檢查 1 發票號碼 -->
+    <InvoiceNumber>AA00000000</InvoiceNumber>
+
+    <!-- 檢查 2 開立時間 -->
+    <InvoiceDate >20060102</InvoiceDate>
+    <InvoiceTime >15:04:05</InvoiceTime>
+
+    <Seller>
+      <Identifier>54834795</Identifier>
+      <Name>台灣智慧家庭股份有限公司</Name>
+      <Address>Address</Address>
+      <PersonInCharge>PersonInCharge</PersonInCharge>
+      <EmailAddress>example@example.com</EmailAddress>
+    </Seller>
+
+    <Buyer>
+      <Identifier>0000000000</Identifier>
+
+      <!-- 檢查 3 買方名稱 -->
+      <Name>Buyer Name</Name>
+    </Buyer>
+    <InvoiceType>07</InvoiceType>
+
+
+    <!-- 檢查 4 確認是否捐贈 -->
+    <DonateMark>0</DonateMark>
+    <!-- 如果有的話 -->
+    <!-- <NPOBAN></NPOBAN> -->
+
+    <!-- 檢查 5 確認會員載具 TIH: EJ1507 手機 3J0002 自然人 CQ0001-->
+    <CarrierType>EJ1507</CarrierType>
+
+    <!-- 檢查 6 確認會員載具號碼 -->
+    <CarrierId1>CarrierId1</CarrierId1>
+    <CarrierId2>CarrierId2</CarrierId2>
+    <PrintMark>N</PrintMark>
+
+    <!-- 檢查 7 確認亂數號碼 -->
+    <RandomNumber>1031</RandomNumber>
+  </Main>
+  <Details>
+    <ProductItem>
+      <Description>網紅小遙 回饋問卷的早鳥們 享53折優惠</Description>
+      <Quantity>1</Quantity>
+
+      <UnitPrice>1650</UnitPrice>
+      <Amount>1650</Amount>
+      <SequenceNumber>1</SequenceNumber>
+      <RelateNumber>A735632420116</RelateNumber>
+    </ProductItem>
+  </Details>
+  <Amount>
+    <SalesAmount>1650</SalesAmount>
+    <FreeTaxSalesAmount>0</FreeTaxSalesAmount>
+    <ZeroTaxSalesAmount>0</ZeroTaxSalesAmount>
+    <TaxType>1</TaxType>
+    <TaxRate>0.05</TaxRate>
+    <TaxAmount>0</TaxAmount>
+    <TotalAmount>1650</TotalAmount>
+  </Amount>
+</Invoice>
