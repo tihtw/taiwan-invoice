@@ -6,7 +6,7 @@ import (
 )
 
 func TestMarshalC0401(t *testing.T) {
-	tc, _ := ioutil.ReadFile("testcases/C0401/01.XML")
+	tc, _ := ioutil.ReadFile("testcases/C0401/01.xml")
 
 	actual, _ := NewMigFile(tc)
 
