@@ -6,11 +6,15 @@ import (
 )
 
 type RoleDescription struct {
-	Identifier     string `xml:"Identifier"`
-	Name           string `xml:"Name"`
-	Address        string `xml:"Address"`
-	PersonInCharge string `xml:"PersonInCharge"`
-	EmailAddress   string `xml:"EmailAddress"`
+	Identifier      string `xml:"Identifier"`
+	Name            string `xml:"Name"`
+	Address         string `xml:"Address,omitempty"`
+	PersonInCharge  string `xml:"PersonInCharge,omitempty"`
+	TelephoneNumber string `xml:"TelephoneNumber,omitempty"`
+	FacsimileNumber string `xml:"FacsimileNumber,omitempty"`
+	EmailAddress    string `xml:"EmailAddress,omitempty"`
+	CustomerNumber  string `xml:"CustomerNumber,omitempty"`
+	RoleRemark      string `xml:"RoleRemark,omitempty"`
 }
 
 type MigMain struct {
@@ -73,5 +77,4 @@ func NewMigFile(b []byte) (*MigFile, error) {
 	log.Println("xmlname", f.XMLName.Space, f.XMLName.Local)
 
 	return &f, nil
-
 }
