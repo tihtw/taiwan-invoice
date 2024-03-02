@@ -23,7 +23,7 @@ type C0401Invoice struct {
 	Xmlns   string   `xml:"xmlns,attr"`
 
 	Main    *C0401InvoiceMain   `xml:"Main"`
-	Details *InvoiceDetail      `xml:"Details"`
+	Details *C0401InvoiceDetail `xml:"Details"`
 	Amount  *C0401InvoiceAmount `xml:"Amount"`
 }
 

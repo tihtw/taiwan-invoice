@@ -36,13 +36,15 @@ func TestMarshalC0401(t *testing.T) {
 			PrintMark:    "N",
 			RandomNumber: "1031",
 		},
-		Details: &InvoiceDetail{
-			ProductItem: []*ProductItem{
+		Details: &C0401InvoiceDetail{
+			ProductItem: []*InvoiceProductItem{
 				{
-					Description:    "網紅小遙 回饋問卷的早鳥們 享53折優惠",
-					Quantity:       "1",
-					UnitPrice:      "1650",
-					Amount:         "1650",
+					Description: "網紅小遙 回饋問卷的早鳥們 享53折優惠",
+					ProductItem: ProductItem{
+						Quantity:  "1",
+						UnitPrice: "1650",
+						Amount:    "1650",
+					},
 					RelateNumber:   "A735632420116",
 					SequenceNumber: "1",
 				},
