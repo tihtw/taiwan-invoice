@@ -1,4 +1,4 @@
-module github.com/tih.tw/taiwan-invoice
+module github.com/tihtw/taiwan-invoice
 
 go 1.18
 
