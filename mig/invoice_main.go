@@ -8,6 +8,7 @@ import (
 
 // Mig 4.0 的圖 5-1, 5-3, 15-1 和 15-3 少放一個 ZeroTaxRateReason, GroupMark
 
+// InvoiceMain represents the main information of an invoice.
 type InvoiceMain struct {
 	InvoiceNumber string           `xml:"InvoiceNumber"`
 	InvoiceDate   string           `xml:"InvoiceDate"`
@@ -30,10 +31,12 @@ type InvoiceMain struct {
 	Reserved2         string `xml:"Reserved2,omitempty"`
 }
 
+// A0101InvoiceMain represents the main information of an A0101 invoice.
 type A0101InvoiceMain struct {
 	InvoiceMain
 }
 
+// F0401InvoiceMain represents the main information of an F0401 invoice.
 type F0401InvoiceMain struct {
 	InvoiceMain
 
@@ -46,6 +49,7 @@ type F0401InvoiceMain struct {
 	BondedAreaConfirm string `xml:"BondedAreaConfirm,omitempty"`
 }
 
+// C0401InvoiceMain represents the main information of a C0401 invoice.
 type C0401InvoiceMain struct {
 	InvoiceMain
 
@@ -58,6 +62,7 @@ type C0401InvoiceMain struct {
 	BondedAreaConfirm string `xml:"BondedAreaConfirm,omitempty"`
 }
 
+// Validate checks the validity of the InvoiceMain block.
 func (block *InvoiceMain) Validate() error {
 	if block.InvoiceNumber == "" {
 		return fmt.Errorf("發票號碼 (InvoiceNumber) 為必填")
@@ -134,6 +139,7 @@ func (block *InvoiceMain) Validate() error {
 	return nil
 }
 
+// Validate checks the validity of the A0101InvoiceMain block.
 func (block *A0101InvoiceMain) Validate() error {
 	err := block.InvoiceMain.Validate()
 	if err != nil {
@@ -142,6 +148,7 @@ func (block *A0101InvoiceMain) Validate() error {
 	return nil
 }
 
+// Validate checks the validity of the F0401InvoiceMain block.
 func (block *F0401InvoiceMain) Validate() error {
 	err := block.InvoiceMain.Validate()
 	if err != nil {
@@ -204,6 +211,7 @@ func (block *F0401InvoiceMain) Validate() error {
 	return nil
 }
 
+// Validate checks the validity of the C0401InvoiceMain block.
 func (block *C0401InvoiceMain) Validate() error {
 	err := block.InvoiceMain.Validate()
 	if err != nil {
