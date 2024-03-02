@@ -1,3 +1,5 @@
+[![Go Reference](https://pkg.go.dev/badge/github.com/tihtw/taiwan-invoice.svg)](https://pkg.go.dev/github.com/tihtw/taiwan-invoice)
+
 # Taiwan Invoice
 Golang SDK for Taiwan E-Invoice API
 
