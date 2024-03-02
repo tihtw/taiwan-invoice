@@ -9,16 +9,16 @@ import "fmt"
 // 相同部分的驗證會在 InvoiceAmount 物件被驗證，如果規則有不同時則會被拆分驗證
 
 type InvoiceAmount struct {
-	Text                   string `xml:",chardata"`
-	SalesAmount            string `xml:"SalesAmount"`
-	TaxType                string `xml:"TaxType"`
-	TaxRate                string `xml:"TaxRate"`
-	TaxAmount              string `xml:"TaxAmount"`
-	TotalAmount            string `xml:"TotalAmount"`
-	DiscountAmount         string `xml:"DiscountAmount,omitempty"`
-	OriginalCurrencyAmount string `xml:"OriginalCurrencyAmount,omitempty"`
-	ExchangeRate           string `xml:"ExchangeRate,omitempty"`
-	Currency               string `xml:"Currency,omitempty"`
+	Text                   string      `xml:",chardata"`
+	SalesAmount            string      `xml:"SalesAmount"`
+	TaxType                TaxTypeEnum `xml:"TaxType"`
+	TaxRate                string      `xml:"TaxRate"`
+	TaxAmount              string      `xml:"TaxAmount"`
+	TotalAmount            string      `xml:"TotalAmount"`
+	DiscountAmount         string      `xml:"DiscountAmount,omitempty"`
+	OriginalCurrencyAmount string      `xml:"OriginalCurrencyAmount,omitempty"`
+	ExchangeRate           string      `xml:"ExchangeRate,omitempty"`
+	Currency               string      `xml:"Currency,omitempty"`
 }
 
 type A0101InvoiceAmount struct {
@@ -48,7 +48,10 @@ func (block *InvoiceAmount) Validate() error {
 	if block.TaxType == "" {
 		return fmt.Errorf("課稅別 (TaxType) 為必填")
 	}
-	// TODO: validate TaxType in TaxTypeEnum
+	err := block.TaxType.Validate()
+	if err != nil {
+		return err
+	}
 
 	if block.TaxRate == "" {
 		return fmt.Errorf("稅率 (TaxRate) 為必填")

@@ -10,11 +10,11 @@ import (
 
 // InvoiceMain represents the main information of an invoice.
 type InvoiceMain struct {
-	InvoiceNumber string           `xml:"InvoiceNumber"`
-	InvoiceDate   string           `xml:"InvoiceDate"`
-	InvoiceTime   string           `xml:"InvoiceTime"`
-	Seller        *RoleDescription `xml:"Seller"`
-	Buyer         *RoleDescription `xml:"Buyer"`
+	InvoiceNumber string  `xml:"InvoiceNumber"`
+	InvoiceDate   string  `xml:"InvoiceDate"`
+	InvoiceTime   string  `xml:"InvoiceTime"`
+	Seller        *Seller `xml:"Seller"`
+	Buyer         *Buyer  `xml:"Buyer"`
 
 	BuyerRemark           string `xml:"BuyerRemark,omitempty"`
 	MainRemark            string `xml:"MainRemark,omitempty"`
@@ -22,9 +22,9 @@ type InvoiceMain struct {
 	Category              string `xml:"Category,omitempty"`
 	RelateNumber          string `xml:"RelateNumber,omitempty"`
 
-	InvoiceType string `xml:"InvoiceType"`
-	GroupMark   string `xml:"GroupMark,omitempty"`
-	DonateMark  string `xml:"DonateMark"`
+	InvoiceType InvoiceTypeEnum `xml:"InvoiceType"`
+	GroupMark   string          `xml:"GroupMark,omitempty"`
+	DonateMark  DonateMarkEnum  `xml:"DonateMark"`
 
 	ZeroTaxRateReason string `xml:"ZeroTaxRateReason,omitempty"`
 	Reserved1         string `xml:"Reserved1,omitempty"`
@@ -114,7 +114,10 @@ func (block *InvoiceMain) Validate() error {
 	if block.InvoiceType == "" {
 		return fmt.Errorf("發票類別 (InvoiceType) 為必填")
 	}
-	// TODO: validate InvoiceType in InvoiceTypeEnum
+	err := block.InvoiceType.Validate()
+	if err != nil {
+		return fmt.Errorf("發票類別 (InvoiceType) 不符規範: %w", err)
+	}
 
 	if len(block.GroupMark) > 1 {
 		return fmt.Errorf("彙開註記 (GroupMark) 長度不得大於1個字元")
@@ -124,9 +127,7 @@ func (block *InvoiceMain) Validate() error {
 		return fmt.Errorf("捐贈註記 (DonateMark) 為必填")
 	}
 
-	if block.ZeroTaxRateReason == "" {
-		return fmt.Errorf("零稅率原因 (ZeroTaxRateReason) 為必填")
-	}
+	// TODO: validate ZeroTaxRateReason in ZeroTaxRateReasonEnum
 
 	if len(block.Reserved1) > 20 {
 		return fmt.Errorf("保留欄位 (Reserved1) 長度不得大於20個字元")
@@ -198,12 +199,14 @@ func (block *F0401InvoiceMain) Validate() error {
 		return fmt.Errorf("發票捐贈對象 (NPOBAN) 長度不得大於10個字元")
 	}
 
-	if len(block.RandomNumber) != 4 {
-		return fmt.Errorf("發票防偽隨機碼 (RandomNumber) 長度必須為4個字元")
-	}
-	pattern := "[0-9]{4}"
-	if match, _ := regexp.MatchString(pattern, block.RandomNumber); !match {
-		return fmt.Errorf("發票防偽隨機碼 (RandomNumber) 應為4位數字")
+	if block.RandomNumber != "" {
+		if len(block.RandomNumber) != 4 {
+			return fmt.Errorf("發票防偽隨機碼 (RandomNumber) 長度必須為4個字元")
+		}
+		pattern := "[0-9]{4}"
+		if match, _ := regexp.MatchString(pattern, block.RandomNumber); !match {
+			return fmt.Errorf("發票防偽隨機碼 (RandomNumber) 應為4位數字")
+		}
 	}
 
 	// TODO: validate BondedAreaConfirm in BondedAreaConfirmEnum

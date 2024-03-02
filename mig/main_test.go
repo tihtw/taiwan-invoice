@@ -16,16 +16,20 @@ func TestMarshalC0401(t *testing.T) {
 				InvoiceNumber: "AA00000000",
 				InvoiceDate:   "20060102",
 				InvoiceTime:   "15:04:05",
-				Seller: &RoleDescription{
-					Identifier:     "54834795",
-					Name:           "台灣智慧家庭股份有限公司",
-					Address:        "Address",
-					PersonInCharge: "PersonInCharge",
-					EmailAddress:   "example@example.com",
+				Seller: &Seller{
+					RoleDescription: RoleDescription{
+						Identifier:     "54834795",
+						Name:           "台灣智慧家庭股份有限公司",
+						Address:        "Address",
+						PersonInCharge: "PersonInCharge",
+						EmailAddress:   "example@example.com",
+					},
 				},
-				Buyer: &RoleDescription{
-					Identifier: "0000000000",
-					Name:       "Buyer Name",
+				Buyer: &Buyer{
+					RoleDescription: RoleDescription{
+						Identifier: "0000000000",
+						Name:       "Buyer Name",
+					},
 				},
 				InvoiceType: "07",
 				DonateMark:  "0",

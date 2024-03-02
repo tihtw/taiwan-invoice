@@ -24,7 +24,7 @@ type InvoiceProductItem struct {
 
 	Description string `xml:"Description"`
 
-	TaxType string `xml:"TaxType"`
+	TaxType TaxTypeEnum `xml:"TaxType"`
 
 	SequenceNumber string `xml:"SequenceNumber"`
 	Remark         string `xml:"Remark,omitempty"`
@@ -40,11 +40,20 @@ type AllowanceProductItem struct {
 	OriginalDescription     string `xml:"OriginalDescription"`
 	AllowanceSequenceNumber string `xml:"AllowanceSequenceNumber"`
 
-	TaxType string `xml:"TaxType"`
+	TaxType TaxTypeEnum `xml:"TaxType"`
 }
 
 type F0401ProductItem struct {
 	InvoiceProductItem
+}
+
+func NewF0401ProductItem(description string) *F0401ProductItem {
+	return &F0401ProductItem{
+		InvoiceProductItem{
+			Description: description,
+			TaxType:     TaxTypeTaxable,
+		},
+	}
 }
 
 func (item *ProductItem) Validate() error {
@@ -68,6 +77,8 @@ func (item *ProductItem) Validate() error {
 	}
 	// TODO: check Amount in type of decimal(20,7)
 
+	// TODO: check amount = quantity * unit price * (1 + tax rate)
+
 	return nil
 }
 
@@ -89,7 +100,10 @@ func (item *InvoiceProductItem) Validate() error {
 	if item.TaxType == "" {
 		return fmt.Errorf("課稅別 (TaxType) 為必填")
 	}
-	// TODO: validate TaxType in TaxTypeEnum
+	err = item.TaxType.Validate()
+	if err != nil {
+		return err
+	}
 
 	if item.SequenceNumber == "" {
 		return fmt.Errorf("明細排列序號 (SequenceNumber) 為必填")
@@ -144,7 +158,10 @@ func (item *AllowanceProductItem) Validate() error {
 	if item.TaxType == "" {
 		return fmt.Errorf("課稅別 (TaxType) 為必填")
 	}
-	// TODO: validate TaxType in TaxTypeEnum
+	err = item.TaxType.Validate()
+	if err != nil {
+		return err
+	}
 	return nil
 }
 

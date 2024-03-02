@@ -26,9 +26,9 @@ func (block *A0101InvoiceDetail) Validate() error {
 		return fmt.Errorf("發票明細項目數量不得超過9999個，目前為%d", len)
 	}
 
-	for _, item := range block.ProductItem {
+	for i, item := range block.ProductItem {
 		if err := item.Validate(); err != nil {
-			return err
+			return fmt.Errorf("第 %d 個發票明細項目驗證錯誤: %v", i+1, err)
 		}
 	}
 	return nil
@@ -42,10 +42,22 @@ func (block *F0401InvoiceDetail) Validate() error {
 		return fmt.Errorf("發票明細項目數量不得超過9999個，目前為%d", len)
 	}
 
-	for _, item := range block.ProductItem {
+	for i, item := range block.ProductItem {
 		if err := item.Validate(); err != nil {
-			return err
+			return fmt.Errorf("第 %d 個發票明細項目驗證錯誤: %v", i+1, err)
 		}
 	}
 	return nil
+}
+
+func (block *A0101InvoiceDetail) FillSequenceNumber() {
+	for i, item := range block.ProductItem {
+		item.SequenceNumber = fmt.Sprintf("%d", i+1)
+	}
+}
+
+func (block *F0401InvoiceDetail) FillSequenceNumber() {
+	for i, item := range block.ProductItem {
+		item.SequenceNumber = fmt.Sprintf("%d", i+1)
+	}
 }
