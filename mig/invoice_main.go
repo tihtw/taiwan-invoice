@@ -30,7 +30,7 @@ type InvoiceMain struct {
 	Reserved2         string `xml:"Reserved2,omitempty"`
 }
 
-type A0401InvoiceMain struct {
+type A0101InvoiceMain struct {
 	InvoiceMain
 }
 
@@ -134,7 +134,7 @@ func (block *InvoiceMain) Validate() error {
 	return nil
 }
 
-func (block *A0401InvoiceMain) Validate() error {
+func (block *A0101InvoiceMain) Validate() error {
 	err := block.InvoiceMain.Validate()
 	if err != nil {
 		return err

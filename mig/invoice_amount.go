@@ -4,7 +4,7 @@ import "fmt"
 
 // 在 Mig 4.0 裡面的 Invoice/Amount 有兩種定義，一個是 A0401 開立發泡
 // 另一個是 F0401 平台存證開立發票訊息，相同欄位名稱的驗證規則不一定相同
-// 舉例來說，A0401 的 SalesAmount 的 fractionDigits 是 0
+// 舉例來說，A0101 的 SalesAmount 的 fractionDigits 是 0
 // 但是 F0401 的 SalesAmount 的 fractionDigits 是 7
 // 相同部分的驗證會在 InvoiceAmount 物件被驗證，如果規則有不同時則會被拆分驗證
 
@@ -21,7 +21,7 @@ type InvoiceAmount struct {
 	Currency               string `xml:"Currency,omitempty"`
 }
 
-type A0401InvoiceAmount struct {
+type A0101InvoiceAmount struct {
 	InvoiceAmount
 }
 
@@ -79,7 +79,7 @@ func (block *InvoiceAmount) Validate() error {
 	return nil
 }
 
-func (block *A0401InvoiceAmount) Validate() error {
+func (block *A0101InvoiceAmount) Validate() error {
 	err := block.InvoiceAmount.Validate()
 	if err != nil {
 		return err
