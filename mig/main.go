@@ -17,55 +17,14 @@ type RoleDescription struct {
 	RoleRemark      string `xml:"RoleRemark,omitempty"`
 }
 
-type MigMain struct {
-	InvoiceNumber string          `xml:"InvoiceNumber"`
-	InvoiceDate   string          `xml:"InvoiceDate"`
-	InvoiceTime   string          `xml:"InvoiceTime"`
-	Seller        RoleDescription `xml:"Seller"`
-	Buyer         RoleDescription `xml:"Buyer"`
-
-	InvoiceType  string `xml:"InvoiceType"`
-	DonateMark   string `xml:"DonateMark"`
-	CarrierType  string `xml:"CarrierType"`
-	CarrierId1   string `xml:"CarrierId1"`
-	CarrierId2   string `xml:"CarrierId2"`
-	PrintMark    string `xml:"PrintMark"`
-	RandomNumber string `xml:"RandomNumber"`
-}
-
-type ProductItem struct {
-	Text           string `xml:",chardata"`
-	Description    string `xml:"Description"`
-	Quantity       string `xml:"Quantity"`
-	UnitPrice      string `xml:"UnitPrice"`
-	Amount         string `xml:"Amount"`
-	SequenceNumber string `xml:"SequenceNumber"`
-	RelateNumber   string `xml:"RelateNumber"`
-}
-
-type MigDetail struct {
-	Text        string        `xml:",chardata"`
-	ProductItem []ProductItem `xml:"ProductItem"`
-}
-type MigAmount struct {
-	Text               string `xml:",chardata"`
-	SalesAmount        string `xml:"SalesAmount"`
-	FreeTaxSalesAmount string `xml:"FreeTaxSalesAmount"`
-	ZeroTaxSalesAmount string `xml:"ZeroTaxSalesAmount"`
-	TaxType            string `xml:"TaxType"`
-	TaxRate            string `xml:"TaxRate"`
-	TaxAmount          string `xml:"TaxAmount"`
-	TotalAmount        string `xml:"TotalAmount"`
-}
-
 type MigFile struct {
 	XMLName xml.Name `xml:"Invoice"`
 	Text    string   `xml:",chardata"`
 	Xmlns   string   `xml:"xmlns,attr"`
 
-	Main    MigMain   `xml:"Main"`
-	Details MigDetail `xml:"Details"`
-	Amount  MigAmount `xml:"Amount"`
+	Main    *InvoiceMain        `xml:"Main"`
+	Details *InvoiceDetail      `xml:"Details"`
+	Amount  *C0401InvoiceAmount `xml:"Amount"`
 }
 
 func NewMigFile(b []byte) (*MigFile, error) {

@@ -11,18 +11,18 @@ func TestMarshalC0401(t *testing.T) {
 	actual, _ := NewMigFile(tc)
 
 	expected := MigFile{
-		Main: MigMain{
+		Main: &InvoiceMain{
 			InvoiceNumber: "AA00000000",
 			InvoiceDate:   "20060102",
 			InvoiceTime:   "15:04:05",
-			Seller: RoleDescription{
+			Seller: &RoleDescription{
 				Identifier:     "54834795",
 				Name:           "台灣智慧家庭股份有限公司",
 				Address:        "Address",
 				PersonInCharge: "PersonInCharge",
 				EmailAddress:   "example@example.com",
 			},
-			Buyer: RoleDescription{
+			Buyer: &RoleDescription{
 				Identifier: "0000000000",
 				Name:       "Buyer Name",
 			},
@@ -34,9 +34,9 @@ func TestMarshalC0401(t *testing.T) {
 			PrintMark:    "N",
 			RandomNumber: "1031",
 		},
-		Details: MigDetail{
-			ProductItem: []ProductItem{
-				ProductItem{
+		Details: &InvoiceDetail{
+			ProductItem: []*ProductItem{
+				{
 					Description:    "網紅小遙 回饋問卷的早鳥們 享53折優惠",
 					Quantity:       "1",
 					UnitPrice:      "1650",
@@ -46,14 +46,16 @@ func TestMarshalC0401(t *testing.T) {
 				},
 			},
 		},
-		Amount: MigAmount{
-			SalesAmount:        "1650",
+		Amount: &C0401InvoiceAmount{
+			InvoiceAmount: InvoiceAmount{
+				SalesAmount: "1650",
+				TaxType:     "1",
+				TaxRate:     "0.05",
+				TaxAmount:   "0",
+				TotalAmount: "1650",
+			},
 			FreeTaxSalesAmount: "0",
 			ZeroTaxSalesAmount: "0",
-			TaxType:            "1",
-			TaxRate:            "0.05",
-			TaxAmount:          "0",
-			TotalAmount:        "1650",
 		},
 	}
 
