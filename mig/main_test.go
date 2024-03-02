@@ -8,26 +8,28 @@ import (
 func TestMarshalC0401(t *testing.T) {
 	tc, _ := ioutil.ReadFile("testcases/C0401/01.xml")
 
-	actual, _ := NewMigFile(tc)
+	actual, _ := NewC0401Invoice(tc)
 
-	expected := MigFile{
-		Main: &InvoiceMain{
-			InvoiceNumber: "AA00000000",
-			InvoiceDate:   "20060102",
-			InvoiceTime:   "15:04:05",
-			Seller: &RoleDescription{
-				Identifier:     "54834795",
-				Name:           "台灣智慧家庭股份有限公司",
-				Address:        "Address",
-				PersonInCharge: "PersonInCharge",
-				EmailAddress:   "example@example.com",
+	expected := C0401Invoice{
+		Main: &C0401InvoiceMain{
+			InvoiceMain: InvoiceMain{
+				InvoiceNumber: "AA00000000",
+				InvoiceDate:   "20060102",
+				InvoiceTime:   "15:04:05",
+				Seller: &RoleDescription{
+					Identifier:     "54834795",
+					Name:           "台灣智慧家庭股份有限公司",
+					Address:        "Address",
+					PersonInCharge: "PersonInCharge",
+					EmailAddress:   "example@example.com",
+				},
+				Buyer: &RoleDescription{
+					Identifier: "0000000000",
+					Name:       "Buyer Name",
+				},
+				InvoiceType: "07",
+				DonateMark:  "0",
 			},
-			Buyer: &RoleDescription{
-				Identifier: "0000000000",
-				Name:       "Buyer Name",
-			},
-			InvoiceType:  "07",
-			DonateMark:   "0",
 			CarrierType:  "EJ1507",
 			CarrierId1:   "CarrierId1",
 			CarrierId2:   "CarrierId2",

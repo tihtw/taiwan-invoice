@@ -17,18 +17,18 @@ type RoleDescription struct {
 	RoleRemark      string `xml:"RoleRemark,omitempty"`
 }
 
-type MigFile struct {
+type C0401Invoice struct {
 	XMLName xml.Name `xml:"Invoice"`
 	Text    string   `xml:",chardata"`
 	Xmlns   string   `xml:"xmlns,attr"`
 
-	Main    *InvoiceMain        `xml:"Main"`
+	Main    *C0401InvoiceMain   `xml:"Main"`
 	Details *InvoiceDetail      `xml:"Details"`
 	Amount  *C0401InvoiceAmount `xml:"Amount"`
 }
 
-func NewMigFile(b []byte) (*MigFile, error) {
-	f := MigFile{}
+func NewC0401Invoice(b []byte) (*C0401Invoice, error) {
+	f := C0401Invoice{}
 
 	if err := xml.Unmarshal(b, &f); err != nil {
 		log.Fatal(err)

@@ -46,6 +46,18 @@ type F0401InvoiceMain struct {
 	BondedAreaConfirm string `xml:"BondedAreaConfirm,omitempty"`
 }
 
+type C0401InvoiceMain struct {
+	InvoiceMain
+
+	CarrierType       string `xml:"CarrierType,omitempty"`
+	CarrierId1        string `xml:"CarrierId1,omitempty"`
+	CarrierId2        string `xml:"CarrierId2,omitempty"`
+	PrintMark         string `xml:"PrintMark"`
+	NPOBAN            string `xml:"NPOBAN,omitempty"`
+	RandomNumber      string `xml:"RandomNumber,omitempty"`
+	BondedAreaConfirm string `xml:"BondedAreaConfirm,omitempty"`
+}
+
 func (block *InvoiceMain) Validate() error {
 	if block.InvoiceNumber == "" {
 		return fmt.Errorf("發票號碼 (InvoiceNumber) 為必填")
@@ -189,5 +201,13 @@ func (block *F0401InvoiceMain) Validate() error {
 
 	// TODO: validate BondedAreaConfirm in BondedAreaConfirmEnum
 
+	return nil
+}
+
+func (block *C0401InvoiceMain) Validate() error {
+	err := block.InvoiceMain.Validate()
+	if err != nil {
+		return err
+	}
 	return nil
 }
