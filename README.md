@@ -27,6 +27,10 @@ SDK 功能部分分為兩個大類：
 - [ ] 查詢該營業人是否設定接收方式
 - [x] 查詢該統一編號是否為營業人
 
+## Mig 4.0
+
+- [X] F0401 平台存證開立發票訊息
+
 
 # 關於 IP 限制
 
@@ -50,6 +54,7 @@ socat tcp-listen:1237,reuseaddr,fork tcp:www-vc.einvoice.nat.gov.tw:443,bind=103
 
 # MIG 部分
 
+* [電子發票資料交換標準訊息建置指引 (Message Implementation Guideline) Ver:4.0](https://www.einvoice.nat.gov.tw/static/ptl/ein_upload/download/325.pdf)
 * 電子發票資料交換標準訊息建置指引 (Message Implementation Guideline) Ver:3.2.1
 
 # 其他相關連結
